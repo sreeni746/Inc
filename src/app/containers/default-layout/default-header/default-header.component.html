@@ -1,0 +1,40 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true">
+    <button
+      toggle="visible"
+      cHeaderToggler
+      [cSidebarToggle]="sidebarId"
+      class="ps-1"
+    >
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+
+    <c-header-nav class="ms-3">
+      <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+    </c-header-nav>
+  </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
+      <c-avatar color="primary" textColor="white">{{userdata?.FullName[0]}}</c-avatar>
+    </button>
+    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
+      <div class="user">
+        <span class="full-name">{{userdata.FullName}}</span>
+        <span class="user-name">{{'@'+userdata.preferred_username}}</span>
+      </div>
+      <li>
+        <hr cDropdownDivider />
+      </li>
+      <a (click)="logout()" cDropdownItem>
+        <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+        Logout
+      </a>
+      <li></li>
+    </ul>
+  </c-dropdown>
+</ng-template>

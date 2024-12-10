@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between flex-wrap">
+          <strong>Edit Level</strong>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <app-card-spinner [isLoading]="isDataLoading"></app-card-spinner>
+        <form [formGroup]="levelForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="levelName" class="form-label h6">Level Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="levelName"
+                  [formControl]="levelForm.controls.levelName"
+                />
+                <app-field-error
+                  errorMsg="Level name is required"
+                  *ngIf="
+                    levelForm.controls.levelName.errors?.required &&
+                    levelForm.controls.levelName.touched
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="levelDesignation" class="form-label h6"
+                  >Level Designation</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="levelDesignation"
+                  [formControl]="levelForm.controls.levelDesignation"
+                />
+                <app-field-error
+                  errorMsg="Level designation is required"
+                  *ngIf="
+                    levelForm.controls.levelDesignation.errors?.required &&
+                    levelForm.controls.levelDesignation.touched
+                  "
+                />
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="isUpdating"
+            >
+              <ng-container *ngIf="isUpdating"
+                ><c-spinner aria-hidden="true" size="sm"></c-spinner>
+                Updating...</ng-container
+              >
+              <ng-container *ngIf="!isUpdating">Update</ng-container>
+            </button>
+          </div>
+        </form>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>

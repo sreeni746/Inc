@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-12">
+    <c-card class="mb-4 org-chart-card">
+      
+      <c-card-body>
+        <app-card-spinner [isLoading]="isDataLoading"></app-card-spinner>
+        <p-organizationChart [value]="treeData">
+          <ng-template let-node pTemplate="default">
+              <div class="text-center">         
+                <div class="text-agent">{{ node.agentName }}</div>
+                <div class="text-desg">{{ node.agentCode }}</div>
+                <div class="text-desg">{{ node.levelName }}</div>
+              </div>
+             
+          </ng-template>
+      </p-organizationChart>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>

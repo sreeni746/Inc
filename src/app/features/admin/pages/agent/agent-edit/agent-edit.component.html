@@ -1,0 +1,254 @@
+<div class="row">
+  <div class="col-xs-12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between flex-wrap">
+          <strong>Edit Agent</strong>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <app-card-spinner [isLoading]="isDataLoading"></app-card-spinner>
+        <form [formGroup]="agentForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row">
+            <div class="mb-3 col-6">
+              <label class="h6">Agent Code</label>
+              <div>{{ formData?.agentCode }}</div>
+            </div>
+            <div class="mb-3 col-6">
+              <label class="h6">Agent Name</label>
+              <div>{{ formData?.agentName }}</div>
+            </div>
+            <div class="mb-3 col-6">
+              <label for="validationTooltip02" class="h6">Level</label>
+              <ng-select
+                [items]="levelList"
+                bindLabel="levelName"
+                autofocus
+                bindValue="id"
+                [ngStyle]="{ width: '200px' }"
+                placeholder="Select level"
+                formControlName="levelId"
+                [readonly]="formData?.IsLevelEditable"
+              />
+              <app-field-error
+                errorMsg="Level is required"
+                *ngIf="
+                  agentForm.controls.levelId.errors?.required &&
+                  agentForm.controls.levelId.touched
+                "
+              />
+            </div>
+            <div class="mb-3 col-6">
+              <label for="validationTooltip02" class="h6">WEF Date</label>
+              <dx-date-box width="200px" placeholder="As of date" displayFormat="dd/MM/yyyy" 
+              class="input-date-field" type="date" formControlName="startDate" [min]="agentForm.controls.startDate.value"   class="me-1 mb-1" 
+               > </dx-date-box>
+              <app-field-error
+                errorMsg="WEF date is required"
+                *ngIf="
+                  agentForm.controls.startDate.errors?.required &&
+                  agentForm.controls.startDate.touched
+                "
+              />
+            </div>
+            <div class="col-12 mb-2">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="tds"
+                  [formControl]="agentForm.controls.tdsApplicableFlag"                
+                />
+                <label class="form-check-label h6" for="tds">
+                  TDS Applicable
+                </label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-3">
+                <label for="collectionIncentiveRate" class="form-label h6"
+                  >Collection Incentive Rate (%)</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="collectionIncentiveRate"
+                  [formControl]="agentForm.controls.collectionIncentiveRate"                
+                />
+                <app-field-error
+                  errorMsg="Collection incentiveRate is required"
+                  *ngIf="
+                    agentForm.controls.collectionIncentiveRate.errors
+                      ?.required &&
+                    agentForm.controls.collectionIncentiveRate.touched
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-3">
+                <label for="uniqueAcctNo" class="form-label h6"
+                  >Unique Account Number</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="uniqueAcctNo"
+                  formControlName="uniqueAcctNo"
+                />
+                <app-field-error
+                  errorMsg="Unique account number is required"
+                  *ngIf="
+                    agentForm.controls.uniqueAcctNo.errors?.required &&
+                    agentForm.controls.uniqueAcctNo.touched
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-3">
+                <label for="schemeCode" class="form-label h6"
+                  >Scheme Code</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="schemeCode"
+                  formControlName="schemeCode"
+                />
+                <app-field-error
+                  errorMsg="Scheme code is required"
+                  *ngIf="
+                    agentForm.controls.schemeCode.errors?.required &&
+                    agentForm.controls.schemeCode.touched
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-3 mb-3">
+              <label class="h6">Salaried</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    name="isSalaried"
+                    type="radio"
+                    id="salaried1"
+                    [value]="true"
+                    [formControl]="agentForm.controls.isSalaried"                   
+                  />
+                  <label class="form-check-label" for="salaried1">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    name="isSalaried"
+                    type="radio"
+                    id="salaried"
+                    [value]="false"
+                    [formControl]="agentForm.controls.isSalaried"
+                    
+                  />
+                  <label class="form-check-label" for="salaried2">No</label>
+                </div>
+              </div>
+              <app-field-error
+                errorMsg="Salaried is required"
+                *ngIf="
+                  agentForm.controls.isSalaried.errors?.required &&
+                  agentForm.controls.isSalaried.touched
+                "
+              />
+            </div>
+            <ng-container *ngIf="isSalaried == true">
+              <div class="col-3">
+                <div class="mb-3">
+                  <label for="individualMonthlyTarget" class="form-label h6"
+                    >Individual Monthly Target</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="individualMonthlyTarget"
+                    formControlName="agentIndividualTarget"
+                  />
+                  <app-field-error
+                    errorMsg="Individual monthly target is required"
+                    *ngIf="
+                      agentForm.controls.agentIndividualTarget.errors
+                        ?.required &&
+                      agentForm.controls.agentIndividualTarget.touched
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="mb-3">
+                  <label for="basicPay" class="form-label h6">Basic Pay</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="basicPay"
+                    formControlName="basicPay"
+                  />
+                  <app-field-error
+                    errorMsg="Basic pay is required"
+                    *ngIf="
+                      agentForm.controls.basicPay.errors?.required &&
+                      agentForm.controls.basicPay.touched
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="mb-3">
+                  <label for="Salary" class="form-label h6">Salary</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="Salary"
+                    formControlName="salary"
+                  />
+                  <app-field-error
+                    errorMsg="Salary is required"
+                    *ngIf="
+                      agentForm.controls.salary.errors?.required &&
+                      agentForm.controls.salary.touched
+                    "
+                  />
+                </div>
+              </div>
+            </ng-container>
+            <div class="mb-3 col-4" *ngIf="isSalaried == false">
+              <label for="parentAgent" class="h6">Parent Agent</label>
+              <ng-select
+                [items]="parentAgentList"
+                bindLabel="agentName"
+                autofocus
+                bindValue="agentId"
+                [ngStyle]="{ width: '200px' }"
+                placeholder="Select Parent"
+                [formControl]="agentForm.controls.parentAgentId"              
+              />
+              <app-field-error
+                errorMsg="Parent is required"
+                *ngIf="
+                  agentForm.controls.parentAgentId.errors?.required &&
+                  agentForm.controls.parentAgentId.touched
+                "
+              />
+            </div>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary" [disabled]="isUpdating">
+              <ng-container *ngIf="isUpdating"><c-spinner aria-hidden="true" size="sm"></c-spinner>
+                Updating...</ng-container>
+                <ng-container *ngIf="!isUpdating">Update</ng-container>
+            </button>
+          </div>
+        </form>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>

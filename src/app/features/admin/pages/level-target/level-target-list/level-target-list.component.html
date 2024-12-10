@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-xs-12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between flex-wrap">
+          <strong>Level</strong>
+          <button
+            color="success"
+            cButton
+            class="me-1"
+            routerLink="/admin/level-add"
+          >
+            Add+
+          </button>
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <div class="d-flex justify-content-end mb-3 flex-wrap">
+          <form [formGroup]="filterForm" (ngSubmit)="filter()" novalidate>
+            <div class="d-flex flex-row flex-wrap gap-3">
+              <input
+                type="text"
+                placeholder="Search"
+                class="form-control"
+                id="search"
+                [ngStyle]="{ width: '200px' }"
+                formControlName="searchText"
+              />
+
+              <button color="primary" cButton class="me-1 mb1" type="submit">
+                Filter
+              </button>
+            </div>
+          </form>
+        </div>
+        <dx-data-grid
+          #levelTargetList
+          id="levelTargetList"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [rowAlternationEnabled]="true"
+          [showColumnLines]="false"
+          [columnAutoWidth]="true"
+          class="data-grid"
+          [dataSource]="customDataSource"
+          [remoteOperations]="true"
+          [hoverStateEnabled]="true"
+        >
+          <dxo-editing mode="row" [allowUpdating]="true"></dxo-editing>
+          <dxi-column
+            dataField="levelName"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="levelDesignation"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+
+          <dxi-column
+            caption="Actions"
+            type="buttons"
+            [width]="70"
+            [allowSorting]="false"
+          >
+          <dxi-button name="edit" icon="edit"></dxi-button>
+          <dxi-button name="save" icon="save"></dxi-button>
+          <dxi-button name="cancel" icon="revert"></dxi-button>
+          </dxi-column>
+  
+          <dxo-paging [pageSize]="10" [pageIndex]="0"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="false"
+            [showNavigationButtons]="true"
+            [showInfo]="true"
+          ></dxo-pager>
+        </dx-data-grid>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>

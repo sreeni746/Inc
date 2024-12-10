@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-xs-12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <div class="d-flex justify-content-between flex-wrap">
+          <strong>Agents</strong>
+          <!-- <button color="success" cButton class="me-1">Add+</button> -->
+        </div>
+      </c-card-header>
+      <c-card-body>
+        <div class="d-flex justify-content-end mb-3 flex-wrap">
+          <form [formGroup]="filterForm" (ngSubmit)="filter()" novalidate>
+            <div class="d-flex flex-row flex-wrap gap-3">
+              <ng-select
+                [items]="levelList"
+                bindLabel="levelName"
+                autofocus
+                bindValue="id"
+                [ngStyle]="{ width: '200px' }"
+                placeholder="Select level"
+                class="me-1 mb-1"
+                formControlName="levelId"
+              >
+              </ng-select>
+              <dx-date-box width="200px" placeholder="As of date" displayFormat="dd/MM/yyyy" (onKeyDown)="stopWriting($event)" (onPaste)="stopWriting($event)"
+              class="input-date-field" type="date" formControlName="asOfDate"   class="me-1 mb-1" [max]="currentDate"
+               > </dx-date-box>
+              <input
+                type="text"
+                placeholder="Search"
+                class="form-control"
+                id="search"
+                [ngStyle]="{ width: '200px' }"
+                formControlName="searchText"
+              />
+
+              <button color="primary" cButton class="me-1 mb1" type="submit" >
+                Filter
+              </button>
+              <button color="info" cButton class="me-1 mb1" type="button" (click)="syncAgents()">
+                <ng-container *ngIf="isSyncing"
+                  ><c-spinner aria-hidden="true" size="sm"></c-spinner>
+                  Syncing...</ng-container
+                >
+                <ng-container *ngIf="!isSyncing">
+                  <svg cIcon class="me-2" name="cilSync"></svg>
+                  sync</ng-container
+                >
+              </button>
+            </div>
+          </form>
+        </div>
+        <dx-data-grid
+          #agentList
+          id="agentList"
+          [showBorders]="true"
+          [remoteOperations]="true"
+          [rowAlternationEnabled]="true"
+          [showColumnLines]="false"
+          [columnAutoWidth]="true"
+          class="data-grid"
+          [dataSource]="customDataSource"
+          [remoteOperations]="true"
+          [hoverStateEnabled]="true"
+        >
+          <dxi-column
+            dataField="agentCode"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="agentName"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="levelName"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="tdsApplicableFlag"
+            dataType="boolean"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="parentAgentCode"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="parentAgentName"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            dataField="parentAgentLevelName"
+            dataType="string"
+            [allowSorting]="false"
+          >
+          </dxi-column>
+          <dxi-column
+            caption="Actions"
+            type="buttons"
+            [width]="90"
+            [allowSorting]="false"
+           
+          >
+          <dxi-button text="Edit" icon="edit" [onClick]="edit" [disabled]="isEditable"> </dxi-button>
+          <dxi-button text="Top to bottom heirarchy" icon="arrowdown" [onClick]="topTreee" > </dxi-button>
+          <dxi-button text="Bottom to top heirarchy" icon="arrowup" [onClick]="bottomTreee"> </dxi-button>
+            
+            
+          </dxi-column>
+      
+          <dxo-paging [pageSize]="10" [pageIndex]="0"></dxo-paging>
+          <dxo-pager
+            [showPageSizeSelector]="false"
+            [showNavigationButtons]="true"
+            [showInfo]="true"
+          ></dxo-pager>
+        </dx-data-grid>
+      </c-card-body>
+    </c-card>
+  </div>
+</div>

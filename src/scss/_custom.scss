@@ -1,0 +1,55 @@
+// Here you can add other styles
+
+///grid
+.data-grid{
+  .dx-pager .dx-page-sizes .dx-selection, .dx-pager .dx-pages .dx-selection{
+    background-color: #EFF6FF;
+  }
+}
+//grid end
+
+
+///select
+
+
+
+
+///select end
+
+
+///bootstrap form
+.form-control{
+  height: 36px;
+}
+/// bootstrap form end
+.user{
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 1rem;
+  .full-name{
+    font-weight: 600;
+  }
+  .user-name{
+    color: #89888d;
+    font-weight: 400;
+  }
+}
+
+
+//orgchart
+.p-organizationchart-node-content {
+  background-color: #0e42fd !important;
+  padding: 0.8rem !important;
+  border-radius: 5px;
+  color: #EFF6FF !important;
+}
+
+.p-organizationchart-line-top{
+  border-color: #787878 !important;
+}
+.p-organizationchart-line-left{
+  border-color: #787878 !important;
+}
+.p-organizationchart-line-down{
+  background: #787878 !important;
+}

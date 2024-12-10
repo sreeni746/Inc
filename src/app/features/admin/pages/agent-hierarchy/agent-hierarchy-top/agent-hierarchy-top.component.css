@@ -1,0 +1,12 @@
+.org-chart-card {
+  overflow: auto;
+}
+
+.text-agent{
+  font-size: 12px;
+  font-weight: bold;
+}
+.text-desg{
+  font-size: 12px;
+}
+
